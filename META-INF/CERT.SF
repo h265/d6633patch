@@ -1,0 +1,28 @@
+Signature-Version: 1.0
+Created-By: 1.0 (Android SignApk)
+SHA1-Digest-Manifest: 8G9AIjVD9vsPbIByYPKDK7SnQq0=
+
+Name: META-INF/com/google/android/update-binary2
+SHA1-Digest-Manifest: igVCy14mTWxqL/sa5Ug9Ilcc5hE=
+
+Name: utils/sgdisk
+SHA1-Digest-Manifest: xPn94snyuuzOh7pExG1iXMsRw6E=
+
+Name: utils/create-uuidlinks.sh
+SHA1-Digest-Manifest: ZTS5SSdoRDjt1MqrzKOIFcz6WVs=
+
+Name: META-INF/com/android/otacert
+SHA1-Digest-Manifest: QW7yPFUPbhU0tUYKW4i2EdneCnw=
+
+Name: utils/busybox
+SHA1-Digest-Manifest: d+IwdPSg12wS4oLteLfJtD7MPME=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest-Manifest: 6sZ2VZhai9LqKqzEcMAHAEYgcyk=
+
+Name: META-INF/com/google/android/updater-script-uuid
+SHA1-Digest-Manifest: L6rBqi1/fDv+awO0eTW1oM7/ri8=
+
+Name: META-INF/com/google/android/updater-script-names
+SHA1-Digest-Manifest: tAP39NX8/KU9mvbj8mIL1zeZhAE=
+

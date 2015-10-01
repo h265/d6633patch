@@ -1,0 +1,65 @@
+ui_print("-------------------------------------");
+ui_print("D6633 Patch for 5.1.1 23.4.A.0.5xx   ");
+ui_print("                         by luala    ");
+ui_print("-------------------------------------");
+
+ui_print("");
+show_progress(1.000000, 0);
+
+ui_print("Mounting /system...");
+run_program("/sbin/busybox", "blockdev", "--setrw", "/dev/block/platform/msm_sdcc.1/by-name/system");
+run_program("/sbin/busybox", "mount", "/system");
+set_progress(0.100000);
+
+ui_print("  Extract D6633 firmware files to system...");
+package_extract_dir("system", "/system");
+set_perm_recursive(0,0,0755,0644,"/system/app/MultiSimSettings");
+set_perm_recursive(0,0,0755,0644,"/system/priv-app/com.sonymobile.callrecording");
+set_perm_recursive(0,0,0755,0644,"/system/priv-app/SystemUI");
+set_perm_recursive(0,0,0755,0644,"/system/priv-app/TeleService");
+set_progress(0.500000);
+if
+	package_extract_file("amss_fsg", "/tmp/amss_fsg") == "t"
+then
+	run_program("/sbin/busybox", "dd", "if=/tmp/amss_fsg", "of=/dev/block/platform/msm_sdcc.1/by-name/fsg", "conv=notrunc");
+	delete("/tmp/amss_fsg");
+    if
+		package_extract_file("amss_fs_1", "/tmp/amss_fs_1") == "t"
+	then
+		run_program("/sbin/busybox", "dd", "if=/tmp/amss_fs_1", "of=/dev/block/platform/msm_sdcc.1/by-name/modemst1", "conv=notrunc");
+		delete("/tmp/amss_fs_1");
+	endif;
+	if
+		package_extract_file("amss_fs_2", "/tmp/amss_fs_2") == "t"
+	then
+		run_program("/sbin/busybox", "dd", "if=/tmp/amss_fs_2", "of=/dev/block/platform/msm_sdcc.1/by-name/modemst2", "conv=notrunc");
+		delete("/tmp/amss_fs_2");
+	endif;
+endif;
+ui_print("  Extract done.");
+
+set_progress(0.600000);
+
+ui_print("  Set permissions...");
+set_perm_recursive(0,0,0755,0644, "/system/etc/firmware");
+ui_print("  Set permissions done.");
+set_progress(0.700000);
+
+# Only update relevant properties
+ui_print("  Update build.prop file...");
+package_extract_file("tool/update_build_prop.sh", "/tmp/update_build_prop.sh");
+set_perm(0, 0, 0755, "/tmp/update_build_prop.sh");
+run_program("/tmp/update_build_prop.sh");
+set_perm(0, 2000, 0644, "/system/build.prop");
+delete("/tmp/update_build_prop.sh");
+ui_print("  Update build.prop done.");
+set_progress(0.900000);
+
+ui_print("  Unmount system...");
+unmount("/system");
+set_progress(0.990000);
+
+ui_print("Patching done.");
+ui_print("Have fun with D6633!");
+set_progress(1.000000);
+
